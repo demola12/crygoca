@@ -1,0 +1,19 @@
+.header {
+    .ReactFlagsSelect-module_flagsSelect__2pfa2 {
+        position: static;
+        .ReactFlagsSelect-module_selectBtn__19wW7 {
+            border: none;
+            .ReactFlagsSelect-module_label__27pw9 {
+                font-family: "Roboto";
+                font-size: 15px;
+                color: #fff;
+            }
+            .ReactFlagsSelect-module_selectBtn__19wW7:after {
+                border-bottom: 5px solid #fff!important;
+            }
+            .ReactFlagsSelect-module_selectBtn__19wW7[aria-expanded="true"]:after {
+                border-top: 5px solid #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+.overlay {
+    --gradient-color: rgba(255, 255, 255, 1), rgba(255, 255, 255, )!important;
+}
+
+.marquee {
+    padding: 30px;
+}
+
+.table {
+    display: table;
+    width: 1060px;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.currency {
+    background: #003366;
+    color: #fff;
+}
+
+.table-cell,
+.table-head {
+    display: table-cell;
+    padding: 1em;
+    // border: #f0f0f0 1px solid;
+    text-align: center;
+}
+
+.cur {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+}
+
+.curImg {
+    width: 25px;
+}
+
+.curr {
+    color: #828282;
+}
+
+.charge {
+    color: #CE1126;
+}
+
+.table-head {
+    font-weight: bold;
+}
+
+.css-ahj2mt-MuiTypography-root {
+    padding: 10px 0;
+}
+
+.ReactFlagsSelect-module_flagsSelectInline__cUnnz {
+    width: 100%;
+}
+
+.menu-flags {
+    padding-bottom: 0px;
+}
+
+.menu-flags-button {
+    border-left: none;
+    border-radius: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.menu-flag {
+    padding-bottom: 0px;
+}
