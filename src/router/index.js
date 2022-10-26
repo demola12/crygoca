@@ -9,6 +9,7 @@ import {
   About,
   Terms,
   PageNotFound,
+  Compare
   
 } from "../pages";
 import LayoutWrapper from "./LayoutWrapper";
@@ -37,6 +38,11 @@ class Routers extends React.PureComponent {
             <NoAuthRoute
               path={ROUTES.HOME}
               component={Home}
+              {...repeatedProps}
+            />
+            <NoAuthRoute
+              path={ROUTES.COMPARE}
+              component={Compare}
               {...repeatedProps}
             />
           <NoAuthRoute

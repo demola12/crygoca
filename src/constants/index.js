@@ -5,4 +5,5 @@ export const ROUTES = {
   BLOG:'/blog',
   BLOG2:'/blog2',
   TERMS:'/terms',
+  COMPARE:'/compare',
 }

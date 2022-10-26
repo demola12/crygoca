@@ -4,6 +4,7 @@ import Blog2 from './Blog2';
 import About from './About';
 import Terms from './Terms';
 import PageNotFound from "./PageNotFound";
+import Compare from "./Compare";
 
 export {
     Home,
@@ -12,4 +13,5 @@ export {
     About,
     Terms,
     PageNotFound,
+    Compare
 };

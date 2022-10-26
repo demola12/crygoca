@@ -9,6 +9,7 @@ import Card4 from "./Card4";
 import Card5 from "./Card5";
 import SideDrawer from './sideDrawer';
 import Backdrop from './Backdrop';
+import CompareBox from './CompareBox';
 
 
 
@@ -22,5 +23,6 @@ export {
     Card4,
     Card5,
     SideDrawer,
-    Backdrop
+    Backdrop,
+    CompareBox
 };
