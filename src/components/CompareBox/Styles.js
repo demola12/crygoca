@@ -4,44 +4,18 @@ export default StyleSheet.create({
 
     compare: {
         background:'#fff',
-        width:'800px',
-        minHeight:'230px',
-        margin:'0 auto 0 auto',
+        height:'190px',
         padding: "35px",
         borderRadius:'8px',
-        position:'absolute',
-        left: "50%",
-        bottom: "-40%",
-        transform: "translate(-50%, -50%)",
-
+        width:"max-content",
         boxShadow:'0px 2px 37px rgba(0, 0, 0, 0.1);',
-        '@media(max-width:1005px)':{
-            MaxWidth:'850px',
-        },
-        '@media(max-width:892px)':{
-            marginTop:'-15vh',
-            maxWidth:'700px',
-            padding: "10px",
-            zIndex:200
-        },
-        '@media(max-width:780px)':{
-            width:'90%',
-        },
-        '@media(max-width:768px)':{
-            bottom: "-90%",            
-        },
-        '@media(max-width:400px)':{
-            bottom: "-100%",            
-        },
     },
     compareWrapper: {
         display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        borderBottom: "1px solid #D7D7D7",
+        gap:"20px",
     },
     inputBox: {
-        minWidth: "270px",
+        minWidth: "170px",
         '@media(max-width:768px)':{
             width: "100%",
             minWidth: "0px"
@@ -49,8 +23,9 @@ export default StyleSheet.create({
     },
     divider: {
         width: "1px",
-        height: "100px",
+        height: "41px",
         background: "#D7D7D7",
+        marginTop:"auto",
         '@media(max-width:768px)':{
             display: "none"
         },
@@ -59,11 +34,7 @@ export default StyleSheet.create({
         display: "flex",
         alignItems: "end",
         paddingTop: "20px",
-        gap: "30px",
-        '@media(max-width:768px)':{
-            flexDirection: "column",
-            gap: "10px"
-        },
+        justifyContent:"center"
 
     },
     input: {
@@ -84,7 +55,6 @@ export default StyleSheet.create({
     },
     compareCon: {
         display: "flex",
-        alignItems: "end",
         '@media(max-width:768px)':{
             width: "100%",
         },
@@ -95,7 +65,7 @@ export default StyleSheet.create({
         },
     },
     compareBtn: {
-        width: "300px",
+        width: "270px",
         '@media(max-width:768px)':{
             width: "100%",
             marginTop: "20px"

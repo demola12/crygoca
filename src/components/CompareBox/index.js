@@ -22,7 +22,6 @@ export default function () {
                         onSelect={(code) => setFrom(code)}
                     />
                 </div>
-                <span className={css(styles.divider)}></span>
                 <div className={css(styles.inputBox)}>
                     <label>Country to</label>
                     <ReactFlagsSelect
@@ -32,15 +31,14 @@ export default function () {
                         onSelect={(code) => setTo(code)}
                     />
                 </div>
-            </div>
-            <div>
-                <div className={css(styles.compareBox)}>
-                    <div className={css(styles.compareCon)}>
+                <div className={css(styles.divider)}></div>
+                <div className={css(styles.compareCon)}>
                         <div className={css(styles.compareInput)}>
                             <label>You send</label>
-                            <input type="text" className={css(styles.input)} />
-                        </div>
-                        <div>
+                            <div style={{
+                                display:"flex"
+                            }}>
+                            <input placeholder='1000' type="text" className={css(styles.input)} />
                             <ReactFlagsSelect
                                 countries={["US", "GH", "GB", "FR", "NG"]}
                                 fullWidth={false}
@@ -50,7 +48,10 @@ export default function () {
                                 className="menu-flags"
                                 selectButtonClassName="menu-flags-button"
                             />
+                            </div>
+                            
                         </div>
+                        
                     </div>
                     <div className={css(styles.compareInput)}>
                         <label>To</label>
@@ -63,8 +64,12 @@ export default function () {
                             className="menu-flag"
                         />
                     </div>
+            </div>
+            <div>
+                <div className={css(styles.compareBox)}>
+                    
                     <div className={css(styles.compareBtn)}>
-                        <Button title="Compare rate" />
+                        <Button title="Search" />
                     </div>
                 </div>
             </div>
