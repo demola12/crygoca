@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { useState } from "react";
 import OptionCard from "./OptionCard"
+import ResultCard from "./ResultCard"
 import { css } from "aphrodite"
 import styles from "./CompareStyles"
 
@@ -26,7 +27,7 @@ export default function CompareView() {
       }}>
       <OptionCard></OptionCard>
       </div>
-    
+    <ResultCard></ResultCard>
       <div className='loader-compare'>
 
         <ColorRing

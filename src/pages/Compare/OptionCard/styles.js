@@ -8,8 +8,9 @@ export default StyleSheet.create({
         height: "100%",
         width: "100%",
         borderRadius:25,
-        backgroundColor:"",
-        overflow:"hidden"
+        backgroundColor:"white",
+        overflow:"hidden",
+        boxShadow: "0px 2px 50px 4px #0000000d"
     },
     
     innerTriangle:{
