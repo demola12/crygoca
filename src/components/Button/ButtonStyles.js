@@ -2,7 +2,7 @@ import { StyleSheet } from "aphrodite";
 
 export default StyleSheet.create({
     button: {
-        background: "#DB9406",      
+             
         color: "#fff",
         width: "100%",
         height: "42px",

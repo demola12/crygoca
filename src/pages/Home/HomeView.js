@@ -34,14 +34,18 @@ import Img13 from '../../assets/images/Img13/Img13.png'
 import Img14 from '../../assets/images/Img14/Img14.png'
 import Img15 from '../../assets/images/Img15/Img15.png'
 import Img16 from '../../assets/images/Img16/Img16.png'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function HomeView() {
+    const history=useHistory();
     const[sideToggle, setSideToggle] = useState(false);
     const [from, setFrom] = useState("GH");
     const [to, setTo] = useState("US");
     const [send, setSend] = useState("GH");
     const [convert, setConvert] = useState("US");
+    const navigateToCompare=()=>{
+        history.push("/compare")
+    }
   return (
     <div className="home">
         <WebHeader show={sideToggle}  click={()=>setSideToggle(!sideToggle)}/>        
@@ -107,7 +111,7 @@ export default function HomeView() {
                                     />
                             </div>
                             <div className={css(styles.compareBtn)}>
-                                <Button title="Compare rate" />
+                                <Button click={navigateToCompare}  title="Compare rate" />
                             </div>
                         </div>
                     </div>
