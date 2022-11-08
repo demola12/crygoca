@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { ROUTES } from "../constants";
 import {
@@ -41,7 +41,7 @@ class Routers extends React.PureComponent {
               {...repeatedProps}
             />
             <NoAuthRoute
-              path={ROUTES.COMPARE}
+              path={ROUTES.COMPARE+"/:from"+"/:to"+"/:send"+"/:convert"+"/:amount"}
               component={Compare}
               {...repeatedProps}
             />
@@ -65,7 +65,13 @@ class Routers extends React.PureComponent {
               component={Terms}
               {...repeatedProps}
             />
-
+            
+            
+            <Route path={ROUTES.COMPARE+"/:from"+"/:to"+"/:send"+"/:convert"} render={() => (<Redirect to={ROUTES.COMPARE+"/gb/ng/gbp/ngn/100"} />)} />
+            <Route path={ROUTES.COMPARE+"/:from"+"/:to"+"/:send"} render={() => (<Redirect to={ROUTES.COMPARE+"/gb/ng/gbp/ngn/100"} />)} />
+            <Route path={ROUTES.COMPARE+"/:from"+"/:to"} render={() => (<Redirect to={ROUTES.COMPARE+"/gb/ng/gbp/ngn/100"} />)} />
+            <Route path={ROUTES.COMPARE+"/:from"} render={() => (<Redirect to={ROUTES.COMPARE+"/gb/ng/gbp/ngn/100"} />)} />
+            <Route path={ROUTES.COMPARE} render={() => (<Redirect to={ROUTES.COMPARE+"/gb/ng/gbp/ngn/100"} />)} />
             {/* Keep this in last always */}
             <NoAuthRoute path={Route.PAGE_NOT_FOUND} component={PageNotFound} />
           </Switch>
