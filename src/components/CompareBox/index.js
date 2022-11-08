@@ -3,17 +3,25 @@ import styles from './Styles'
 import ReactFlagsSelect from "react-flags-select";
 import Button from "../Button"
 import {country} from "../../constants/country";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllByPlaceholderText } from '@testing-library/react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 export default function (props) {
+    let history=useHistory();
     const defaultCountry=["US", "GB","NG"];
-    const [from, setFrom] = useState("GB");
-    const [to, setTo] = useState("NG");
-    const [send, setSend] = useState("GB");
+    const currencyCodeToCountry=(code)=>{
+        return country.filter(v=>v.currencyCode==code)[0]?.countryCode
+    }
+    const [from, setFrom] = useState(props.data.from.toUpperCase());
+    const [to, setTo] = useState(props.data.to.toUpperCase());
+    const [send, setSend] = useState(currencyCodeToCountry(props.data.send.toUpperCase()));
     const [sendCountries, setSendCountries] = useState(defaultCountry)
-    const [convert, setConvert] = useState("NG");
+    const [convert, setConvert] = useState(currencyCodeToCountry(props.data.convert.toUpperCase()));
     const [convertCountries, setConvertCountries] = useState(defaultCountry);
+    const [amount, setAmount] = useState(Number(props.data.amount)||0);
+    
     const selectCountryFrom=(code)=>{
         if(!defaultCountry.includes(code)){
             let selectedCountry=country.filter(v=>v.countryCode==code);
@@ -41,6 +49,7 @@ return result
     const pas=(code)=>{
         return country.filter(v=>v.countryCode==code)[0].currencyCode
     }
+   
     const selectCountryTo=(code)=>{
         if(!defaultCountry.includes(code)){
             let selectedCountry=country.filter(v=>v.countryCode==code);
@@ -53,15 +62,31 @@ return result
         setConvert(code)
         setTo(code)
     }
-    const getRate=async()=>{
-        props.loader(true)
-        props.result([])
-        props.filter([])
-        let response=await axios.get(`https://be.crygoca.co.uk/index.php/v1/get_rate/${from.toLowerCase()}/${to.toLowerCase()}/${pas(send).toLowerCase()}/${pas(convert).toLowerCase()}/1000`)
-        props.result(response.data.data)
-        props.filter(response.data.filter)
-        props.loader(false)
+    const updateText=(e)=>{
+        let word=Number(e.target.value)||0;
+        if(word>=0){
+            setAmount(word)
+        }
     }
+    const fetchData=async()=>{
+        if(Number(amount)>0){
+            props.loader(true)
+            props.result([])
+            props.filter([])
+            let response=await axios.get(`https://be.crygoca.co.uk/index.php/v1/get_rate/${from.toLowerCase()}/${to.toLowerCase()}/${pas(send).toLowerCase()}/${pas(convert).toLowerCase()}/${amount}`)
+            props.result(response.data.data)
+            props.filter(response.data.filter)
+            props.loader(false)
+        }
+    }
+    const getRate=()=>{
+        history.push(ROUTES.COMPARE+`/${from.toLowerCase()}/${to.toLowerCase()}/${pas(send).toLowerCase()}/${pas(convert).toLowerCase()}/${amount}`)
+       
+        
+    }
+    useEffect(() => {
+        fetchData()
+      },[props.data.from,props.data.to,props.data.send,props.data.convert,props.data.amount]);
     return <>
 
         <div className={css(styles.compare)}>
@@ -93,7 +118,7 @@ return result
                             <div style={{
                                 display:"flex"
                             }}>
-                            <input placeholder='1000' type="text" className={css(styles.input)} />
+                            <input value={amount} placeholder='1000' type="text" onChange={(e)=>{updateText(e)}} className={css(styles.input)} />
                             <ReactFlagsSelect
                                 countries={sendCountries}
                                 fullWidth={false}

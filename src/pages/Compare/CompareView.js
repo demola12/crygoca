@@ -10,7 +10,8 @@ import './CompareStyles.scss'
 import { WebFooter, WebHeader, SideDrawer, Backdrop, CompareBox } from '../../components';
 import { Link } from 'react-router-dom';
 import { ColorRing } from 'react-loader-spinner';
-export default function CompareView() {
+export default function CompareView(props) {
+  
   const [sideToggle, setSideToggle] = useState(false);
   const [loaderStatus, setLoaderStatus] = useState(false);
   const [resultStatus, setResultStatus] = useState([]);
@@ -30,7 +31,13 @@ export default function CompareView() {
       <SideDrawer show={sideToggle} click={() => setSideToggle(!sideToggle)} />
       <Backdrop show={sideToggle} click={() => setSideToggle(!sideToggle)} />
       <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: 40 }}>
-        <CompareBox loader={(e)=>{loader(e)}} result={(e)=>{result(e)}} filter={(e)=>{filter(e)}}  ></CompareBox>
+        <CompareBox data={{
+          from:props.match.params.from.toUpperCase(),
+          to:props.match.params.to.toUpperCase(),
+          send:props.match.params.send.toUpperCase(),
+          convert:props.match.params.convert.toUpperCase(),
+          amount:props.match.params.amount,
+        }} loader={(e)=>{loader(e)}} result={(e)=>{result(e)}} filter={(e)=>{filter(e)}}  ></CompareBox>
       </div>
       
         {
