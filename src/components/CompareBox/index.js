@@ -116,7 +116,9 @@ return result
                         <div className={css(styles.compareInput)}>
                             <label>You send</label>
                             <div style={{
-                                display:"flex"
+                                display:"flex",
+                                border:"thin solid rgba(77, 77, 77, 0.3)"
+
                             }}>
                             <input value={amount} placeholder='1000' type="text" onChange={(e)=>{updateText(e)}} className={css(styles.input)} />
                             <ReactFlagsSelect
@@ -125,7 +127,7 @@ return result
                                 selected={send}
                                 customLabels={convertCountriesLabel(sendCountries)}
                                 onSelect={(code) => setSend(code)}
-                                className="menu-flags"
+                                className="menu-flags border-none"
                                 selectButtonClassName="menu-flags-button"
                             />
                             </div>

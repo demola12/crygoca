@@ -41,7 +41,7 @@ export default function CompareView(props) {
       </div>
       
         {
-          filterStatus.length>2 &&(
+          /* filterStatus.length>2 &&(
             <div
             style={{display:"flex",gap:20,justifyContent:"center"}}
             >
@@ -54,7 +54,7 @@ export default function CompareView(props) {
               </div>
             })}
            </div>
-          )
+          ) */
         }
       
      <div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>

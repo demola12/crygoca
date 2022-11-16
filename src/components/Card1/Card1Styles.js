@@ -1,3 +1,4 @@
+
 import { StyleSheet } from "aphrodite";
 
 export default StyleSheet.create({
@@ -10,7 +11,8 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         gap: "20px",
-        borderRadius: "20px"
+        borderRadius: "20px",
+        padding:"0px 20px"
     },
     img: {
         width: "50px"
@@ -20,7 +22,8 @@ export default StyleSheet.create({
         fontStyle: "normal",
         fontWeight: "700",
         fontSize: "20px",
-        textAlign: "center"
+        textAlign: "center",
+        color:"#0A0A0A"
     },
     text: {
         fontFamily: 'Roboto',

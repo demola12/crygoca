@@ -4,8 +4,9 @@ import { Button } from '../../../components';
 import monetgram from "../../../assets/images/monetgram.svg"
 
 import { useState } from 'react';
+import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 export default function (props) {
-
+    let list=[]
     return <>
 
         <div className={css(styles.container)}>
@@ -25,15 +26,21 @@ export default function (props) {
                             className={css(styles.first)}>Receipient gets</div></div>
                 <div></div>
                 {
+                    
                     props.data.result.map((v,idx)=>{
-                        return <> 
-                        <div key={idx} className={css(styles.row,styles.mainFont)}>
-                            <div className={css(styles.first)}>{v?.transaction_time}</div>
-                            <div className={css(styles.flex)}>{v?.pay_type}</div>
-                            <div className={css(styles.first)}>{((v?.amount*v?.rate)+v?.transaction_fee).toFixed(2)} {v?.currency?.toUpperCase()}</div>
-                            </div>
-                        <div style={{border:"1px solid #D7D7D7"}}></div>
-                        </>
+                        if(!list.includes(v?.pay_type)){
+                            list.push(v?.pay_type)
+                            return <> 
+                            <div key={idx} className={css(styles.row,styles.mainFont)}>
+                                <div className={css(styles.first)}>In Minutes</div>
+                                <div className={css(styles.flex)}>{v?.pay_type}</div>
+                                <div className={css(styles.first)}>{(Number(v?.amount*v?.rate)-(Number(v?.transaction_fee ||0)*Number(v?.rate ||0))).toFixed(2)} {v?.currency?.toUpperCase()}</div>
+                                </div>
+                            <div style={{border:"1px solid #D7D7D7"}}></div>
+                            </>
+                        }
+                        
+                        
                     })
                 }
                
@@ -47,7 +54,7 @@ export default function (props) {
                 display: "flex"
             }}>
 
-                <Button style={{ marginTop: "auto", marginBottom: "auto" }} title={`Go to ${props.data?.name}`} />
+                <Button click={()=>{window.open(props.data?.pay_info[Object.keys(props.data?.pay_info)[0]].url)}} style={{ marginTop: "auto", marginBottom: "auto" }} title={`Go to ${props.data?.name}`} />
             </div>
         </div>
     </>
