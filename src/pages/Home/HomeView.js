@@ -11,6 +11,7 @@ import {css} from "aphrodite"
 import styles from "./HomeStyles"
 import './HomeStyles.scss'
 import { WebFooter, WebHeader, Button, Card1, Card2, Card3, SideDrawer, Backdrop } from '../../components';
+import {country} from "../../constants/country";
 import Marquee from "react-fast-marquee";
 import GH from '../../assets/images/GH/GH.png'
 import NG from '../../assets/images/NG/NG.png'
@@ -28,24 +29,85 @@ import Img7 from '../../assets/images/Img7/Img7.png'
 import Img8 from '../../assets/images/Img8/Img8.png'
 import Img9 from '../../assets/images/Img9/Img9.png'
 import Img10 from '../../assets/images/Img10/Img10.png'
-import Img11 from '../../assets/images/Img11/Img11.png'
+import usercenter from '../../assets/images/usercenter.svg';
+import reognition from '../../assets/images/recognition.svg';
+import db from '../../assets/images/db.svg';
+import research from '../../assets/images/research.svg';
 import Img12 from '../../assets/images/Img12/Img12.png'
 import Img13 from '../../assets/images/Img13/Img13.png'
 import Img14 from '../../assets/images/Img14/Img14.png'
 import Img15 from '../../assets/images/Img15/Img15.png'
 import Img16 from '../../assets/images/Img16/Img16.png'
 import { Link, useHistory } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 export default function HomeView() {
     const history=useHistory();
+    const defaultCountry=["US", "GB","NG"];
     const[sideToggle, setSideToggle] = useState(false);
-    const [from, setFrom] = useState("GH");
-    const [to, setTo] = useState("US");
-    const [send, setSend] = useState("GH");
-    const [convert, setConvert] = useState("US");
+    const [from, setFrom] = useState("GB");
+    const [to, setTo] = useState("NG");
+    const [sendCountries, setSendCountries] = useState(defaultCountry)
+    const [send, setSend] = useState("GB");
+    const [convert, setConvert] = useState("NG");
+    const [amount, setAmount] = useState(100);
+    const [convertCountries, setConvertCountries] = useState(defaultCountry);
+   
     const navigateToCompare=()=>{
-        history.push("/compare")
+        
+        history.push(ROUTES.COMPARE+`/${from.toLowerCase()}/${to.toLowerCase()}/${pas(send).toLowerCase()}/${pas(convert).toLowerCase()}/${amount}`)
     }
+    const navigateToCompare2=(addr)=>{
+        
+        history.push(ROUTES.COMPARE+addr)
+    }
+    const updateText=(e)=>{
+        let word=Number(e.target.value)||0;
+        if(word>=0){
+            setAmount(word)
+        }
+    }
+    const selectCountryFrom=(code)=>{
+        if(!defaultCountry.includes(code)){
+            let selectedCountry=country.filter(v=>v.countryCode==code);
+            if(selectedCountry.length>0){
+                setSendCountries([...defaultCountry,selectedCountry[0].countryCode])
+                
+               
+            }
+        }
+        setSend(code)
+        setFrom(code)
+    }
+    const convertCountriesLabel=(arrr)=>{
+        let result={}
+        arrr.forEach(i=>{
+            let selectedCountry=country.filter(v=>v.countryCode==i);
+            if(selectedCountry.length>0){
+                result[i]=selectedCountry[0].currencyCode
+            }
+        })
+
+return result
+
+    }
+    const pas=(code)=>{
+        return country.filter(v=>v.countryCode==code)[0].currencyCode
+    }
+   
+    const selectCountryTo=(code)=>{
+        if(!defaultCountry.includes(code)){
+            let selectedCountry=country.filter(v=>v.countryCode==code);
+            if(selectedCountry.length>0){
+                setConvertCountries([...defaultCountry,selectedCountry[0].countryCode])
+                
+               
+            }
+        }
+        setConvert(code)
+        setTo(code)
+    }
+      
   return (
     <div className="home">
         <WebHeader show={sideToggle}  click={()=>setSideToggle(!sideToggle)}/>        
@@ -63,55 +125,62 @@ export default function HomeView() {
                         <div className={css(styles.inputBox)}>
                             <label>Country from</label>
                             <ReactFlagsSelect
-                                countries={["GH", "GB", "FR", "IT"]}
                                 fullWidth={false}
+                                searchable
                                 selected={from}
-                                onSelect={(code) => setFrom(code)}
+                                onSelect={(code) => selectCountryFrom(code)}
                                 />
                         </div>
                         <span className={css(styles.divider)}></span>
                         <div className={css(styles.inputBox)}>
                             <label>Country to</label>
                             <ReactFlagsSelect
-                                countries={["US", "GB", "FR", "IT"]}
                                 fullWidth={false}
+                                searchable
                                 selected={to}
-                                onSelect={(code) => setTo(code)}
+                                onSelect={(code) => selectCountryTo(code)}
                                 />
                         </div>
                     </div>
                     <div>
                         <div className={css(styles.compareBox)}>
+                        
                             <div className={css(styles.compareCon)}>
-                                <div className={css(styles.compareInput)}>
-                                    <label>You send</label>
-                                    <input type="text" className={css(styles.input)} />
+                            <label>You send</label>
+                            <div style={{display:"flex", border:"thin solid rgba(77, 77, 77, 0.3)"}}>
+                            <div className={css(styles.compareInput)}>
+                                    
+                                    <input onChange={(e)=>{updateText(e)}} value={amount} placeholder="100" type="text" className={css(styles.input)} />
                                 </div>
                                 <div>
                                     <ReactFlagsSelect
-                                        countries={["US", "GH", "GB", "FR", "NG"]}
+                                        countries={sendCountries}
                                         fullWidth={false}
                                         selected={send}
-                                        customLabels={{ US: "US", GB: "GB", FR: "FR", GH: "GH", NG: "NG" }}
+                                        
+                                customLabels={convertCountriesLabel(sendCountries)}
                                         onSelect={(code) => setSend(code)}
-                                        className="menu-flags"
+                                        className="menu-flags border-none"
                                         selectButtonClassName="menu-flags-button"
                                         />
                                 </div>
                             </div>
+                                
+                            </div>
                             <div className={css(styles.compareInput)}>
                                 <label>To</label>
                                 <ReactFlagsSelect
-                                    countries={["US", "GH", "GB", "FR", "NG"]}
+                                    countries={convertCountries}
                                     fullWidth={false}
                                     selected={convert}
-                                    customLabels={{ US: "USD", GB: "POUND", FR: "EURO", GH: "CEDI", NG: "NAIRA" }}
+                                    
+                                customLabels={convertCountriesLabel(convertCountries)}
                                     onSelect={(code) => setConvert(code)}
                                     className="menu-flag"
                                     />
                             </div>
                             <div className={css(styles.compareBtn)}>
-                                <Button click={navigateToCompare}  title="Compare rate" />
+                                <Button click={()=>navigateToCompare()}  title="Compare rate" />
                             </div>
                         </div>
                     </div>
@@ -154,7 +223,7 @@ export default function HomeView() {
                         <div className="table-cell">
                             <span><img src={Chart} /></span>
                         </div>
-                        <div class="table-cell"><span><Button title="Send" /></span></div>
+                        <div class="table-cell"><span><Button click={()=>navigateToCompare2("/us/gh/usd/ghs/100")} title="Send" /></span></div>
                     </div>
                     <div className="table-row">
                         <div className="table-cell cur">
@@ -166,7 +235,7 @@ export default function HomeView() {
                         <div className="table-cell">
                             <span><img src={Chart} /></span>
                         </div>
-                        <div className="table-cell"><span><Button title="Send" /></span></div>
+                        <div className="table-cell"><span><Button click={()=>navigateToCompare2("/us/ng/usd/ngn/100")}  title="Send" /></span></div>
                     </div>
                 </div>
             </div>
@@ -189,9 +258,9 @@ export default function HomeView() {
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>
-                        <p><Link>Send money to USA</Link></p>
-                        <p><Link>Send money to Italy</Link></p>
-                        <p><Link>Send money to Canada</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/gh/us/ghs/usd/100`} className={css(styles.accordionText)}>Send money to USA</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/gh/it/ghs/eur/100`} className={css(styles.accordionText)}>Send money to Italy</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/gh/ca/ghs/cad/100`} className={css(styles.accordionText)}>Send money to Canada</Link></p>
                     </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -210,9 +279,9 @@ export default function HomeView() {
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>
-                        <p><Link>Send money to USA</Link></p>
-                        <p><Link>Send money to Italy</Link></p>
-                        <p><Link>Send money to Canada</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/ng/us/ngn/usd/100`} className={css(styles.accordionText)}>Send money to USA</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/ng/us/ngn/usd/100`} className={css(styles.accordionText)}>Send money to Italy</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/ng/us/ngn/usd/100`} className={css(styles.accordionText)}>Send money to Canada</Link></p>
                     </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -231,9 +300,9 @@ export default function HomeView() {
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>
-                        <p><Link>Send money to USA</Link></p>
-                        <p><Link>Send money to Italy</Link></p>
-                        <p><Link>Send money to Canada</Link></p>
+                        <p ><Link to={ROUTES.COMPARE+`/gb/us/gbp/usd/100`} className={css(styles.accordionText)}>Send money to USA</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/gb/it/gbp/eur/100`} className={css(styles.accordionText)}>Send money to Italy</Link></p>
+                        <p><Link to={ROUTES.COMPARE+`/gb/ca/gbp/cad/100`} className={css(styles.accordionText)}>Send money to Canada</Link></p>
                     </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -324,7 +393,7 @@ export default function HomeView() {
                         internationally using our best and trusted provider in just a few clicks.
                     </p>
                     <div className={css(styles.button)}>
-                        <Button title="Compare cash transfer" />
+                        <Button click={()=>navigateToCompare()} title="Compare cash transfer" />
                     </div>                   
                 </div>
             </div>
@@ -365,19 +434,19 @@ export default function HomeView() {
             <h6 className={css(styles.featText)}>This is why crygoca is the best way to transfer money abroad.</h6>
             <div className={css(styles.cardWrapper)}>
                 <Card1
-                    img={Img11}
+                    img={research}
                     name="RESEARCH"
                     text="Crygoca’s experts spend hours researching money transfer services." />
                 <Card1
-                    img={Img11}
+                    img={db}
                     name="LARGE DATABASE"
                     text="We have one of the largest databases of money transfer prices worldwide" />
                 <Card1
-                    img={Img11}
+                    img={reognition}
                     name="RECOGNITION"
                     text="Crygoca’s opinion is trusted by recognized media & governments" />
                 <Card1
-                    img={Img11}
+                    img={usercenter}
                     name="USER CENTER"
                     text="Crygoca’s value puts our users' need at the center of everything we do" />
             </div>
@@ -410,7 +479,7 @@ export default function HomeView() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                    <Typography>How can I use Monito to find the best ways to sendmoney?</Typography>
+                    <Typography>How can I use Crygoca to find the best ways to sendmoney?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>Before you make an international money transfer, compare the costs of the different options on Crygoca. Rates and fees  change often, so for the best deal, do a comparison before every transfer — they may have changed since you last sent money. 
@@ -423,7 +492,7 @@ export default function HomeView() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                    <Typography>How can I use Monito to find the best ways to sendmoney?</Typography>
+                    <Typography>How can I use Crygoca to find the best ways to sendmoney?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>Before you make an international money transfer, compare the costs of the different options on Crygoca. Rates and fees  change often, so for the best deal, do a comparison before every transfer — they may have changed since you last sent money. 
@@ -436,7 +505,7 @@ export default function HomeView() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                    <Typography>How can I use Monito to find the best ways to sendmoney?</Typography>
+                    <Typography>How can I use Crygoca to find the best ways to sendmoney?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>Before you make an international money transfer, compare the costs of the different options on Crygoca. Rates and fees  change often, so for the best deal, do a comparison before every transfer — they may have changed since you last sent money. 
@@ -449,7 +518,7 @@ export default function HomeView() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                    <Typography>How can I use Monito to find the best ways to sendmoney?</Typography>
+                    <Typography>How can I use Crygoca to find the best ways to sendmoney?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>Before you make an international money transfer, compare the costs of the different options on Crygoca. Rates and fees  change often, so for the best deal, do a comparison before every transfer — they may have changed since you last sent money. 
@@ -462,7 +531,7 @@ export default function HomeView() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                    <Typography>How can I use Monito to find the best ways to sendmoney?</Typography>
+                    <Typography>How can I use Crygoca to find the best ways to sendmoney?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     <Typography>Before you make an international money transfer, compare the costs of the different options on Crygoca. Rates and fees  change often, so for the best deal, do a comparison before every transfer — they may have changed since you last sent money. 

@@ -22,3 +22,6 @@
 .menu-flag {
     padding-bottom: 0px;
 }
+.border-none button{
+    border: none;
+}

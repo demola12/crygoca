@@ -108,7 +108,7 @@ export default StyleSheet.create({
     input: {
         cursor: "pointer",
         padding: "5px 10px",
-        border: "thin solid rgba(77, 77, 77, 0.3)",
+        border: "none",
         borderTopLeftRadius: "4px",
         borderBottomLeftRadius: "4px",
         color: "#4d4d4d",
@@ -123,7 +123,7 @@ export default StyleSheet.create({
     },
     compareCon: {
         display: "flex",
-        alignItems: "end",
+        flexDirection:"column",
         '@media(max-width:768px)':{
             width: "100%",
         },
@@ -198,7 +198,6 @@ export default StyleSheet.create({
         fontWeight: "700",
         fontSize: "32px",
         lineHeight: "38px",
-        textAlign: "center",
         color: "#0A0A0A",
     },
     boxSubHead: {
@@ -397,5 +396,12 @@ export default StyleSheet.create({
             flexWrap: "wrap",
             justifyContent: "center"
         },
+    },
+    accordionText:{
+        fontFamily: "Roboto",
+        fontStyle: "Regular",
+        fontSize: "15px",
+        color: "#0A0A0A",
     }
+
 });

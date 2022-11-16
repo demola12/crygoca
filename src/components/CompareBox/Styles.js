@@ -40,7 +40,7 @@ export default StyleSheet.create({
     input: {
         cursor: "pointer",
         padding: "5px 10px",
-        border: "thin solid rgba(77, 77, 77, 0.3)",
+       border: "none",
         borderTopLeftRadius: "4px",
         borderBottomLeftRadius: "4px",
         color: "#4d4d4d",

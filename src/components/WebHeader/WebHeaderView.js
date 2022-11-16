@@ -16,11 +16,14 @@ export default function WebHeaderView({click, show}) {
   return (
     <div className={css(styles.header)+ " header"}>
       <div className={css(styles.logo)}>
-        <img src={Logo} />
+      <Link to={ROUTES.HOME} style={{color:"#fff"}}>
+      <img src={Logo} />
+          </Link>
+        
       </div>
       <div className={css(styles.menu)}>
         <div className={css(styles.menulist)}>
-          <Link to={ROUTES.HOME} style={{color:"#fff"}}>
+          <Link to={ROUTES.COMPARE} style={{color:"#fff"}}>
             Money Transfer
           </Link>
         </div>
